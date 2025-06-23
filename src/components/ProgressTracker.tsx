@@ -1,8 +1,13 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+
 interface ProgressStep {
   id: string
   label: string
   completed: boolean
   active: boolean
+  route: string
 }
 
 interface ProgressTrackerProps {
@@ -10,13 +15,22 @@ interface ProgressTrackerProps {
 }
 
 export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
+  const router = useRouter()
+  
   const steps: ProgressStep[] = [
-    { id: 'vinduer', label: 'Dine vinduer', completed: currentStep > 1, active: currentStep === 1 },
-    { id: 'service', label: 'Vælg service', completed: currentStep > 2, active: currentStep === 2 },
-    { id: 'tid', label: 'Vælg tid', completed: currentStep > 3, active: currentStep === 3 },
-    { id: 'bruger', label: 'Opret bruger', completed: currentStep > 4, active: currentStep === 4 },
-    { id: 'bekraeft', label: 'Bekræft', completed: currentStep > 5, active: currentStep === 5 }
+    { id: 'vinduer', label: 'Dine vinduer', completed: currentStep > 1, active: currentStep === 1, route: '/windows' },
+    { id: 'service', label: 'Vælg service', completed: currentStep > 2, active: currentStep === 2, route: '/service' },
+    { id: 'tid', label: 'Vælg tid', completed: currentStep > 3, active: currentStep === 3, route: '/tid' },
+    { id: 'bruger', label: 'Opret bruger', completed: currentStep > 4, active: currentStep === 4, route: '/bruger' },
+    { id: 'bekraeft', label: 'Bekræft', completed: currentStep > 5, active: currentStep === 5, route: '/bekraeft' }
   ]
+
+  const handleStepClick = (step: ProgressStep) => {
+    // Only allow navigation to completed steps
+    if (step.completed) {
+      router.push(step.route)
+    }
+  }
 
   return (
     <div className="w-full bg-white/95 shadow-sm border-b border-gray-200 py-4 mb-6">
@@ -25,14 +39,17 @@ export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
           {steps.map((step, index) => (
             <div key={step.id} className="flex items-center">
               {/* Step Circle and Label */}
-              <div className="flex flex-col items-center">
+              <div 
+                className={`flex flex-col items-center ${step.completed ? 'cursor-pointer' : ''}`}
+                onClick={() => handleStepClick(step)}
+              >
                 {/* Circle */}
                 <div className={`
                   w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-semibold transition-all duration-200
                   ${step.active 
                     ? 'bg-[#255071] text-white shadow-lg' 
                     : step.completed 
-                      ? 'bg-[#db413f] text-white' 
+                      ? 'bg-[#db413f] text-white hover:bg-[#c23936]' 
                       : 'bg-gray-200 text-gray-400'
                   }
                 `}>
@@ -45,18 +62,18 @@ export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
                   )}
                 </div>
                 
-                {/* Label */}
-                <span className={`
-                  mt-2 text-xs sm:text-sm text-center px-1 transition-all duration-200
+                {/* Label - Fixed height to ensure alignment */}
+                <div className={`
+                  mt-2 text-xs sm:text-sm text-center px-1 transition-all duration-200 h-8 flex items-center justify-center
                   ${step.active 
                     ? 'text-[#255071] font-bold' 
                     : step.completed 
-                      ? 'text-[#db413f] font-medium'
+                      ? 'text-[#db413f] font-medium hover:text-[#c23936]'
                       : 'text-gray-400'
                   }
                 `}>
-                  {step.label}
-                </span>
+                  <span className="leading-tight">{step.label}</span>
+                </div>
               </div>
 
               {/* Connecting Line */}
