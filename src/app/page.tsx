@@ -68,7 +68,7 @@ export default function HomePage() {
                   id="address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="F.eks. Vesterbrogade 123, 1620 København V"
+                  placeholder="F.eks. Vesterbrogade 123, 1620 Kbh V"
                   className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-lg"
                   required
                 />
@@ -85,7 +85,7 @@ export default function HomePage() {
               </motion.button>
             </form>
             
-            <div className="mt-6 flex items-center justify-center space-x-8 text-sm text-gray-500">
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-sm text-gray-500">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span>Gratis tilbud</span>
