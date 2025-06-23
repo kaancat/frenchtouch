@@ -25,10 +25,14 @@ export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
     { id: 'bekraeft', label: 'Bekræft', completed: currentStep > 5, active: currentStep === 5, route: '/bekraeft' }
   ]
 
-  const handleStepClick = (step: ProgressStep) => {
-    // Only allow navigation to completed steps
+  const handleStepClick = (step: ProgressStep, index: number) => {
+    // Allow navigation to completed steps
     if (step.completed) {
       router.push(step.route)
+    }
+    // For Step 1, allow going back to homepage when it's active
+    else if (index === 0 && step.active) {
+      router.push('/')
     }
   }
 
@@ -40,14 +44,14 @@ export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
             <div key={step.id} className="flex items-center">
               {/* Step Circle and Label */}
               <div 
-                className={`flex flex-col items-center ${step.completed ? 'cursor-pointer' : ''}`}
-                onClick={() => handleStepClick(step)}
+                className={`flex flex-col items-center ${step.completed || (index === 0 && step.active) ? 'cursor-pointer' : ''}`}
+                onClick={() => handleStepClick(step, index)}
               >
                 {/* Circle */}
                 <div className={`
                   w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base font-semibold transition-all duration-200
                   ${step.active 
-                    ? 'bg-[#255071] text-white shadow-lg' 
+                    ? 'bg-[#255071] text-white shadow-lg' + (index === 0 ? ' hover:bg-[#1e4057]' : '')
                     : step.completed 
                       ? 'bg-[#db413f] text-white hover:bg-[#c23936]' 
                       : 'bg-gray-200 text-gray-400'
@@ -66,7 +70,7 @@ export default function ProgressTracker({ currentStep }: ProgressTrackerProps) {
                 <div className={`
                   mt-2 text-xs sm:text-sm text-center px-1 transition-all duration-200 h-8 flex items-center justify-center
                   ${step.active 
-                    ? 'text-[#255071] font-bold' 
+                    ? 'text-[#255071] font-bold' + (index === 0 ? ' hover:text-[#1e4057]' : '')
                     : step.completed 
                       ? 'text-[#db413f] font-medium hover:text-[#c23936]'
                       : 'text-gray-400'

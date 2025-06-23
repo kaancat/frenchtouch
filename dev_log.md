@@ -306,4 +306,32 @@ src/
 
 **NEXT STEPS:** Test complete navigation flow, then implement time/scheduling logic.
 
---- 
+---
+
+## [2025-06-23] – GitHub Deployment & Vercel Compatibility
+Goal: Push code to GitHub for Vercel deployment
+
+- Added comprehensive .gitignore to exclude build artifacts
+- Initialized Git repository and removed .next from tracking
+- Created initial commit with complete MVP implementation
+- Successfully pushed to https://github.com/kaancat/frenchtouch.git
+- Confirmed Next.js App Router navigation will work on Vercel
+- All client-side routing (`useRouter`, page transitions) fully supported
+- Static site generation working: all pages pre-rendered as static content
+- Build successful with only img optimization warnings (cosmetic)
+
+TODO: Complete remaining booking flow steps (time selection, user creation, confirmation)
+
+---
+
+## [2025-06-23] – Mobile UI Improvements
+Goal: Fix mobile layout issues based on user feedback
+
+- Fixed address input placeholder: shortened "København V" to "Kbh V"
+- Fixed bullet points layout: changed from horizontal row to vertical stack on mobile
+- Used `flex-col sm:flex-row` for responsive behavior
+- Improved spacing with `gap-3 sm:gap-8` for better mobile appearance
+- Changes pushed to GitHub and deployed via Vercel
+- Mobile UX now cleaner with no text cutoffs or awkward wrapping
+
+TODO: Complete remaining booking flow steps (time selection, user creation, confirmation) 

@@ -85,7 +85,7 @@ export default function HomePage() {
               </motion.button>
             </form>
             
-            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-sm text-gray-500">
+            <div className="mt-6 flex items-center justify-center space-x-6 text-sm text-gray-500">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span>Gratis tilbud</span>
