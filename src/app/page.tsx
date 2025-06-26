@@ -11,8 +11,8 @@ export default function HomePage() {
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (address.trim()) {
-      // Navigate to service page with address as query parameter
-      router.push(`/service?address=${encodeURIComponent(address)}`)
+      // Navigate to windows page with address as query parameter
+      router.push(`/windows?address=${encodeURIComponent(address)}`)
     }
   }
 
